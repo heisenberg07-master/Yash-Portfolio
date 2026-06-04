@@ -67,8 +67,8 @@ function TypeWriter() {
 function DeveloperIllustration() {
   return (
     <div className="relative w-full max-w-xs sm:max-w-sm mx-auto animate-float">
-      {/* Glow background */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-600/20 via-violet-600/10 to-cyan-500/20 blur-3xl scale-110" />
+      {/* Enhanced animated background with GPU acceleration */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-600/20 via-violet-600/10 to-cyan-500/20 blur-3xl scale-110 transform-gpu will-change-transform" />
 
       {/* Main card */}
       <div className="relative bg-white dark:bg-dark-700 rounded-3xl p-6 shadow-2xl shadow-primary-600/20 border border-gray-100 dark:border-dark-600">
@@ -224,27 +224,31 @@ export default function Hero() {
       {/* Animated background blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="orb w-[600px] h-[600px] bg-primary-600/10 dark:bg-primary-600/5 -top-40 -left-40"
+          className="orb w-[100vw] max-w-[600px] aspect-square rounded-full bg-primary-600/10 dark:bg-primary-600/5 -top-40 -left-40 blur-3xl transform-gpu will-change-transform"
           style={{
             transform: `translate(${mousePos.x * 30}px, ${mousePos.y * 30}px)`,
             transition: 'transform 0.8s ease-out',
             animation: 'blob 7s infinite',
+            animationDuration: '20s'
           }}
         />
         <div
-          className="orb w-[500px] h-[500px] bg-violet-600/8 dark:bg-violet-600/5 top-1/3 -right-40"
+          className="orb w-[80vw] max-w-[500px] aspect-square rounded-full bg-violet-600/8 dark:bg-violet-600/5 top-1/3 -right-40 blur-3xl transform-gpu will-change-transform"
           style={{
             transform: `translate(${-mousePos.x * 20}px, ${-mousePos.y * 20}px)`,
             transition: 'transform 0.8s ease-out',
             animation: 'blob 7s infinite 2s',
+            animationDuration: '25s', 
+            animationDirection: 'reverse'
           }}
         />
         <div
-          className="orb w-[400px] h-[400px] bg-cyan-500/8 dark:bg-cyan-500/5 -bottom-40 left-1/3"
+          className="orb w-[70vw] max-w-[400px] aspect-square rounded-full bg-cyan-500/8 dark:bg-cyan-500/5 -bottom-40 left-1/3 blur-3xl transform-gpu will-change-transform"
           style={{
             transform: `translate(${mousePos.x * 15}px, ${-mousePos.y * 15}px)`,
             transition: 'transform 0.8s ease-out',
             animation: 'blob 7s infinite 4s',
+            animationDuration: '30s'
           }}
         />
 

@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({
@@ -36,7 +36,7 @@ export default function RootLayout({
       className={`${inter.variable} ${outfit.variable} h-full antialiased w-full max-w-full overflow-x-hidden`}
     >
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
       </head>
       <body className="min-h-full flex flex-col font-sans w-full max-w-full overflow-x-hidden">
         <main className="flex-grow w-full max-w-full overflow-x-hidden">{children}</main>
