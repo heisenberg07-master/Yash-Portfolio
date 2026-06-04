@@ -219,7 +219,7 @@ export default function Hero() {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-white dark:bg-dark-900"
+      className="relative min-h-screen flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-24 overflow-hidden w-full max-w-full bg-white dark:bg-dark-900"
     >
       {/* Animated background blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -294,45 +294,52 @@ export default function Hero() {
             </p>
 
             {/* Location */}
-            <div className="flex items-center gap-2 text-dark-400 dark:text-slate-500 text-sm">
-              <MapPin className="w-4 h-4 text-primary-600" />
-              <span>Pune, India</span>
-              <span className="mx-2">·</span>
-              <span className="text-green-600 dark:text-green-400 font-medium">Open to Remote & On-site</span>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 text-dark-400 dark:text-slate-500 text-sm">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary-600" />
+                <span>Pune, India</span>
+              </div>
+              <span className="hidden sm:block text-gray-300 dark:text-dark-600">|</span>
+              <div className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span>Open to Remote & On-site</span>
+              </div>
             </div>
 
             {/* CTA buttons */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 pt-1 sm:pt-2">
-              <MagneticWrapper>
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 sm:pt-4 w-full">
+              <MagneticWrapper className="w-full sm:w-auto">
                 <a
                   href="/Yash_Saraf_ASE_Resume.pdf"
                   download="Yash_Saraf_ASE_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary flex items-center gap-2 text-sm"
+                  className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 text-sm px-6 py-3"
                 >
                   <Download className="w-4 h-4" />
                   Download Resume
                 </a>
               </MagneticWrapper>
-              <MagneticWrapper>
-                <button
-                  onClick={() => handleNavClick('#projects')}
-                  className="btn-outline flex items-center gap-2 text-sm"
-                >
-                  View Projects
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </MagneticWrapper>
-              <MagneticWrapper>
-                <button
-                  onClick={() => handleNavClick('#contact')}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-dark-600 dark:text-slate-300 bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 transition-all duration-300"
-                >
-                  <Mail className="w-4 h-4" />
-                  Contact Me
-                </button>
-              </MagneticWrapper>
+              <div className="flex gap-3 w-full sm:w-auto">
+                <MagneticWrapper className="flex-1 sm:flex-none">
+                  <button
+                    onClick={() => handleNavClick('#projects')}
+                    className="btn-outline w-full sm:w-auto flex items-center justify-center gap-2 text-sm px-5 py-3"
+                  >
+                    Projects
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </MagneticWrapper>
+                <MagneticWrapper className="flex-1 sm:flex-none">
+                  <button
+                    onClick={() => handleNavClick('#contact')}
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 rounded-xl text-sm font-semibold text-dark-600 dark:text-slate-300 bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 transition-all duration-300"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Contact
+                  </button>
+                </MagneticWrapper>
+              </div>
             </div>
 
             {/* Social links */}

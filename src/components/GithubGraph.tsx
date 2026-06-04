@@ -25,14 +25,14 @@ export default function GithubGraph() {
   }, []);
 
   return (
-    <div className="mt-12 sm:mt-16 w-full max-w-5xl mx-auto">
+    <div className="mt-12 sm:mt-16 w-full max-w-full lg:max-w-5xl mx-auto overflow-hidden px-4">
       <div className="flex items-center gap-2 mb-6">
         <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-dark-700 flex items-center justify-center">
           <GitCommit className="w-4 h-4 text-dark-900 dark:text-white" />
         </div>
         <h3 className="text-xl font-bold text-dark-900 dark:text-white">GitHub Contributions</h3>
       </div>
-      <div className="bg-gray-50/50 dark:bg-dark-800/50 rounded-2xl p-4 sm:p-6 border border-gray-100 dark:border-dark-700 overflow-x-auto w-full text-center">
+      <div className="bg-gray-50/50 dark:bg-dark-800/50 rounded-2xl p-4 sm:p-6 border border-gray-100 dark:border-dark-700 w-full overflow-x-auto scrollbar-hide text-center relative max-w-full">
         <div className="min-w-[750px] inline-block mx-auto text-left">
           {mounted ? (
             <GitHubCalendar 

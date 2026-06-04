@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,13 @@ export const metadata: Metadata = {
   description: "Modern portfolio of Yash Saraf showcasing full-stack projects, software engineering skills, and development experience.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,10 +33,13 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${outfit.variable} h-full antialiased`}
+      className={`${inter.variable} ${outfit.variable} h-full antialiased w-full max-w-full overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col font-sans">
-        <main className="flex-grow">{children}</main>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+      </head>
+      <body className="min-h-full flex flex-col font-sans w-full max-w-full overflow-x-hidden">
+        <main className="flex-grow w-full max-w-full overflow-x-hidden">{children}</main>
       </body>
     </html>
   );
