@@ -1,65 +1,146 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from 'react';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import About from '@/components/About';
+import Skills from '@/components/Skills';
+import Experience from '@/components/Experience';
+import Projects from '@/components/Projects';
+import Journey from '@/components/Journey';
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
+import CustomCursor from '@/components/Cursor';
+import CommandMenu from '@/components/CommandMenu';
+
+function LoadingScreen({ onDone }: { onDone: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const [phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    const steps = [
+      { target: 30, delay: 100 },
+      { target: 60, delay: 300 },
+      { target: 85, delay: 500 },
+      { target: 100, delay: 700 },
+    ];
+
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const runStep = (index: number) => {
+      if (index >= steps.length) {
+        timeout = setTimeout(() => {
+          setPhase(1);
+          setTimeout(onDone, 500);
+        }, 200);
+        return;
+      }
+      timeout = setTimeout(() => {
+        setProgress(steps[index].target);
+        setPhase(index);
+        runStep(index + 1);
+      }, steps[index].delay);
+    };
+
+    runStep(0);
+    return () => clearTimeout(timeout);
+  }, [onDone]);
+
+  const msgs = ['Initializing...', 'Loading assets...', 'Almost ready...', 'Welcome!'];
+
+  return (
+    <div
+      className={`fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center flex-col transition-all duration-500 ${
+        phase === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
+    >
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary-600/10 blur-3xl animate-blob" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-violet-600/10 blur-3xl animate-blob" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="relative text-center space-y-8">
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-3">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-600 to-violet-600 flex items-center justify-center shadow-2xl shadow-primary-600/40">
+            <span className="text-3xl font-black text-white">Y</span>
+          </div>
+        </div>
+
+        <div>
+          <h1 className="text-3xl font-black text-white">
+            Yash<span className="gradient-text">.</span>Saraf
+          </h1>
+          <p className="text-slate-400 text-sm mt-1">Full Stack Developer & MCA Graduate</p>
+        </div>
+
+        {/* Progress */}
+        <div className="w-48 mx-auto">
+          <div className="h-1 bg-dark-700 rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-300 ease-out"
+              style={{
+                width: `${progress}%`,
+                background: 'linear-gradient(90deg, #2563EB, #7C3AED, #06B6D4)',
+              }}
+            />
+          </div>
+          <p className="text-slate-500 text-xs mt-2 text-center">{msgs[Math.min(phase, msgs.length - 1)]}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // Component mounted on client side
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      setTheme(saved as 'light' | 'dark');
+    } else {
+      setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light');
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <CustomCursor />
+
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
+
+      <div
+        className={`transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'} custom-cursor-active`}
+      >
+        <CommandMenu theme={theme} onToggleTheme={toggleTheme} />
+        <Navbar theme={theme} onToggleTheme={toggleTheme} />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Journey />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
