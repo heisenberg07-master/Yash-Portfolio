@@ -81,7 +81,7 @@ const experiences: Experience[] = [
     ],
     skills: ['Python', 'REST APIs', 'Automation', 'Backend Development', 'Git', 'Debugging', 'Documentation'],
     highlights: [
-      { label: 'Duration', value: '3 Months' },
+      { label: 'Duration', value: '1 Months' },
       { label: 'Type', value: 'Tech Internship' },
       { label: 'Stack', value: 'Python' },
     ],
